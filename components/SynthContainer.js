@@ -13,7 +13,7 @@ export default function SynthContainer() {
       border-green-600 bg-black p-3">
 
         <p className="row-start-1 row-span-1 col-span-full
-        place-self-center text-xl text-green-600">Delta Synth</p>
+        place-self-center text-xl text-green-600">Green Synth</p>
         
         <div className="row-start-2 row-span-1 col-start-1 col-span-1">
           <Oscillator /> 
