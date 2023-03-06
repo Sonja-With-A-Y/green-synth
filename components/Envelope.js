@@ -13,7 +13,7 @@ export default function Envelope() {
         <Fader parameter="DECAY" faderId="5" />
         <Fader parameter="SUSTAIN" faderId="6" />
         <Fader parameter="RELEASE" faderId="7" />
-        <ModIndicators modPathId="1" />
+        <ModIndicators modPathId="env" />
       </div>
 
       </div>

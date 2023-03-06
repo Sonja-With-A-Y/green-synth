@@ -41,7 +41,12 @@ export function StateProvider({ children }) {
   const [osc, setOsc] = useState("triangle")
   const [lfo, setLFO] = useState("sine")
   const [faders, setFaders] = useState([80, 60, 40, 75, 90, 30, 60, 40, 110, 50])
-  const [modPaths, setModPaths] = useState([[0, 1, 0], [1, 0, 0]])
+  const [modPaths, setModPaths] = useState({
+      attack: true,
+      filter: false,
+      pitch: false,
+    }
+  )
 
   const changeOSC = (waveform) => {
     setOsc(waveform);
@@ -57,18 +62,19 @@ export function StateProvider({ children }) {
       }
     });
   }
-  const changeModPaths = (modPathId, modTypeId) => {
+  const changeModPaths = (modTypeId) => {
     setModPaths((prevState) => {
-        if (prevState[modPathId][modTypeId] === 0) {
-          prevState[modPathId][modTypeId] = 1
-        } else {
-          prevState[modPathId][modTypeId] = 0
-        }
-      return {
-        ...prevState
-      }
+        // if (prevState[modTypeId] === false) {
+        //   prevState[modTypeId] = true
+        // } else {
+        //   prevState[modTypeId] = false
+        // }
+        // return {
+        //   ...prevState
+        // }
+        return {...prevState, [modTypeId]: !(prevState[modTypeId])}
     });
-  } 
+  }
 
   
   return (

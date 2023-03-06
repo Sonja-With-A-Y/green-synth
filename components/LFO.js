@@ -21,7 +21,7 @@ export default function LFO() {
 
         <Fader parameter="RATE" faderId="2" />
         <Fader parameter="DEPTH" faderId="3" />
-        <ModIndicators modPathId="0" />
+        <ModIndicators modPathId="lfo" />
 
       </div>
   )
