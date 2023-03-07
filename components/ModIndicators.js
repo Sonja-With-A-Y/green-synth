@@ -1,8 +1,10 @@
-import { useModPaths, useModPathsUpdate } from "./SynthContext"
+import { useLFOModPaths, useLFOModPathsUpdate, useEnvModPaths, useEnvModPathsUpdate } from "./SynthContext"
 
 export default function ModIndicators(props) {
-  const modPaths = useModPaths()
-  const modPathsUpdate = useModPathsUpdate()
+  const modPaths = props.modPathId === "lfo" ? useLFOModPaths() : useEnvModPaths()
+  const modPathsUpdate = props.modPathId === "lfo" ? useLFOModPathsUpdate() : useEnvModPathsUpdate()
+
+
 
   return(
     <div className="flex flex-col h-32 justify-evenly">

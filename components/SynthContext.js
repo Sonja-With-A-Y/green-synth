@@ -6,8 +6,10 @@ const SelectedLFO = React.createContext()
 const SelectedLFOUpdate = React.createContext()
 const FaderValues = React.createContext()
 const FaderValuesUpdate = React.createContext()
-const ModPaths = React.createContext()
-const ModPathsUpdate = React.createContext()
+const LFOModPaths = React.createContext()
+const LFOModPathsUpdate = React.createContext()
+const EnvModPaths = React.createContext()
+const EnvModPathsUpdate = React.createContext()
 
 export function useSelectedOsc() {
   return useContext(SelectedOsc)
@@ -30,23 +32,35 @@ export function useFaderValuesUpdate() {
   return useContext(FaderValuesUpdate)
 }
 
-export function useModPaths() {
-  return useContext(ModPaths)
+export function useLFOModPaths() {
+  return useContext(LFOModPaths)
 }
-export function useModPathsUpdate() {
-  return useContext(ModPathsUpdate)
+export function useLFOModPathsUpdate() {
+  return useContext(LFOModPathsUpdate)
+}
+
+export function useEnvModPaths() {
+  return useContext(EnvModPaths)
+}
+export function useEnvModPathsUpdate() {
+  return useContext(EnvModPathsUpdate)
 }
 
 export function StateProvider({ children }) {
   const [osc, setOsc] = useState("triangle")
   const [lfo, setLFO] = useState("sine")
   const [faders, setFaders] = useState([80, 60, 40, 75, 90, 30, 60, 40, 110, 50])
-  const [modPaths, setModPaths] = useState({
-      attack: true,
-      filter: false,
-      pitch: false,
-    }
-  )
+  const [LFOmodPaths, setLFOModPaths] = useState({
+    attack: true,
+    filter: false,
+    pitch: false,
+  })
+
+  const [EnvmodPaths, setEnvModPaths] = useState({
+    attack: true,
+    filter: true,
+    pitch: false,
+  })
 
   const changeOSC = (waveform) => {
     setOsc(waveform);
@@ -62,20 +76,16 @@ export function StateProvider({ children }) {
       }
     });
   }
-  const changeModPaths = (modTypeId) => {
-    setModPaths((prevState) => {
-        // if (prevState[modTypeId] === false) {
-        //   prevState[modTypeId] = true
-        // } else {
-        //   prevState[modTypeId] = false
-        // }
-        // return {
-        //   ...prevState
-        // }
+  const changeLFOModPaths = (modTypeId) => {
+    setLFOModPaths((prevState) => {
         return {...prevState, [modTypeId]: !(prevState[modTypeId])}
     });
   }
-
+  const changeEnvModPaths = (modTypeId) => {
+    setEnvModPaths((prevState) => {
+        return {...prevState, [modTypeId]: !(prevState[modTypeId])}
+    });
+  }
   
   return (
     <SelectedOsc.Provider value={osc}>
@@ -84,11 +94,15 @@ export function StateProvider({ children }) {
           <SelectedLFOUpdate.Provider value={changeLFO}>
             <FaderValues.Provider value={faders}>
               <FaderValuesUpdate.Provider value={changeFader}>
-                <ModPaths.Provider value={modPaths}>
-                  <ModPathsUpdate.Provider value={changeModPaths}>
-                    {children}
-                  </ModPathsUpdate.Provider>
-                </ModPaths.Provider>
+                <LFOModPaths.Provider value={LFOmodPaths}>
+                  <LFOModPathsUpdate.Provider value={changeLFOModPaths}>
+                    <EnvModPaths.Provider value={EnvmodPaths}>
+                      <EnvModPathsUpdate.Provider value={changeEnvModPaths}>
+                        {children}
+                      </EnvModPathsUpdate.Provider>
+                    </EnvModPaths.Provider>
+                  </LFOModPathsUpdate.Provider>
+                </LFOModPaths.Provider>
               </FaderValuesUpdate.Provider>
             </FaderValues.Provider>
           </SelectedLFOUpdate.Provider>
