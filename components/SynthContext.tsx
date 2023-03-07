@@ -1,15 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, ReactNode } from "react";
 
-const SelectedOsc = React.createContext()
-const SelectedOscUpdate = React.createContext()
-const SelectedLFO = React.createContext()
-const SelectedLFOUpdate = React.createContext()
-const FaderValues = React.createContext()
-const FaderValuesUpdate = React.createContext()
-const LFOModPaths = React.createContext()
-const LFOModPathsUpdate = React.createContext()
-const EnvModPaths = React.createContext()
-const EnvModPathsUpdate = React.createContext()
+const SelectedOsc = React.createContext<string | null>(null)
+const SelectedOscUpdate = React.createContext<((waveform: string) => void) | null>(null)
+const SelectedLFO = React.createContext<string | null>(null)
+const SelectedLFOUpdate = React.createContext<((waveform: string) => void) | null>(null)
+const FaderValues = React.createContext<number[] | null>(null)
+const FaderValuesUpdate = React.createContext<((faderId: number, value: number) => void) | null>(null)
+const LFOModPaths = React.createContext<object | null>(null)
+const LFOModPathsUpdate = React.createContext<((modTypeId: "attack" | "filter" | "pitch") => void) | null>(null)
+const EnvModPaths = React.createContext<object | null>(null)
+const EnvModPathsUpdate = React.createContext<((modTypeId: "attack" | "filter" | "pitch") => void) | null>(null)
 
 export function useSelectedOsc() {
   return useContext(SelectedOsc)
@@ -46,7 +46,7 @@ export function useEnvModPathsUpdate() {
   return useContext(EnvModPathsUpdate)
 }
 
-export function StateProvider({ children }) {
+export function StateProvider({ children }: {children: any;}): JSX.Element {
   const [osc, setOsc] = useState("triangle")
   const [lfo, setLFO] = useState("sine")
   const [faders, setFaders] = useState([80, 60, 40, 75, 90, 30, 60, 40, 110, 50])
@@ -62,13 +62,13 @@ export function StateProvider({ children }) {
     pitch: false,
   })
 
-  const changeOSC = (waveform) => {
+  const changeOSC = (waveform: string) => {
     setOsc(waveform);
   }
-  const changeLFO = (waveform) => {
+  const changeLFO = (waveform: string) => {
     setLFO(waveform);
   }
-  const changeFader = (faderId, value) => {
+  const changeFader = (faderId: number, value: number) => {
     setFaders((prevState) => {
       prevState[faderId] = value
       return {
@@ -76,12 +76,12 @@ export function StateProvider({ children }) {
       }
     });
   }
-  const changeLFOModPaths = (modTypeId) => {
+  const changeLFOModPaths = (modTypeId: "attack" | "filter" | "pitch") => {
     setLFOModPaths((prevState) => {
         return {...prevState, [modTypeId]: !(prevState[modTypeId])}
     });
   }
-  const changeEnvModPaths = (modTypeId) => {
+  const changeEnvModPaths = (modTypeId: "attack" | "filter" | "pitch") => {
     setEnvModPaths((prevState) => {
         return {...prevState, [modTypeId]: !(prevState[modTypeId])}
     });
