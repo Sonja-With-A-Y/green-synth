@@ -1,4 +1,4 @@
-import React, { useState, useContext, ReactNode } from "react";
+import React, { useState, useContext } from "react";
 
 const SelectedOsc = React.createContext<string | null>(null)
 const SelectedOscUpdate = React.createContext<((waveform: string) => void) | null>(null)
@@ -14,36 +14,69 @@ const EnvModPathsUpdate = React.createContext<((modTypeId: "attack" | "filter" |
 export function useSelectedOsc() {
   return useContext(SelectedOsc)
 }
+
 export function useSelectedOscUpdate() {
-  return useContext(SelectedOscUpdate)
+  const SelectedOscUpdateUntyped = useContext(SelectedOscUpdate)
+
+  if (!SelectedOscUpdateUntyped) {
+    throw new Error("Problem with osc update context")
+  }
+
+  return SelectedOscUpdateUntyped
 }
 
 export function useSelectedLFO() {
   return useContext(SelectedLFO)
 }
+
 export function useSelectedLFOUpdate() {
-  return useContext(SelectedLFOUpdate)
+  const SelectedLFOUpdateUntyped = useContext(SelectedLFOUpdate)
+
+  if (!SelectedLFOUpdateUntyped) {
+    throw new Error("Problem with lfo update context")
+  }
+
+  return SelectedLFOUpdateUntyped
 }
 
 export function useFaderValues() {
   return useContext(FaderValues)
 }
+
 export function useFaderValuesUpdate() {
-  return useContext(FaderValuesUpdate)
+  const FaderValuesUpdateUntyped = useContext(FaderValuesUpdate)
+
+  if (!FaderValuesUpdateUntyped) {
+    throw new Error("Problem with fader update context")
+  }
+
+  return FaderValuesUpdateUntyped
 }
 
 export function useLFOModPaths() {
   return useContext(LFOModPaths)
 }
 export function useLFOModPathsUpdate() {
-  return useContext(LFOModPathsUpdate)
+  const LFOModPathsUpdateUntyped = useContext(LFOModPathsUpdate)
+
+  if (!LFOModPathsUpdateUntyped) {
+    throw new Error("Problem with lfo mod paths update context")
+  }
+
+  return LFOModPathsUpdateUntyped
 }
 
 export function useEnvModPaths() {
   return useContext(EnvModPaths)
 }
 export function useEnvModPathsUpdate() {
-  return useContext(EnvModPathsUpdate)
+  const EnvModPathsUpdateUntyped = useContext(EnvModPathsUpdate)
+
+  if (!EnvModPathsUpdateUntyped) {
+    throw new Error("Problem with env mod paths update context")
+  }
+
+  return EnvModPathsUpdateUntyped
 }
 
 export function StateProvider({ children }: {children: any;}): JSX.Element {

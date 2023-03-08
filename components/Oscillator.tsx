@@ -1,6 +1,5 @@
 import { useSelectedOsc, useSelectedOscUpdate } from "./SynthContext"
 
-
 export default function Oscillator() {
   const osc = useSelectedOsc()
   const oscUpdate = useSelectedOscUpdate()
