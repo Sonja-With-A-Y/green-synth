@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
-/// <reference path="../decs.d.ts"/>
-const ReactArrayToTree = require('react-array-to-tree');
+import MultiProvider from "./MultiProvider";
 
 const SelectedOsc = React.createContext<string | null>(null)
 const SelectedOscUpdate = React.createContext<((waveform: string) => void) | null>(null)
@@ -121,24 +120,24 @@ export function StateProvider({ children }: {children: any;}): JSX.Element {
         return {...prevState, [modTypeId]: !(prevState[modTypeId])}
     });
   }
-  
-  const Providers = ReactArrayToTree([
-    [SelectedOsc.Provider, {value: osc}],
-    [SelectedOscUpdate.Provider, {value: changeOsc}],
-    [SelectedLFO.Provider, {value: lfo}],
-    [SelectedLFOUpdate.Provider, {value: changeLFO}],
-    [FaderValues.Provider, {value: faders}],
-    [FaderValuesUpdate.Provider, {value: changeFader}],
-    [LFOModPaths.Provider, {value: LFOmodPaths}],
-    [LFOModPathsUpdate.Provider, {value: changeLFOModPaths}],
-    [EnvModPaths.Provider, {value: EnvmodPaths}],
-    [EnvModPathsUpdate.Provider, {value: changeEnvModPaths}],
-  ]);
 
   return (
-    <Providers>
+    <MultiProvider
+      providers={[
+        <SelectedOsc.Provider value={osc} />,
+        <SelectedOscUpdate.Provider value={changeOsc} />,
+        <SelectedLFO.Provider value={lfo} />,
+        <SelectedLFOUpdate.Provider value={changeLFO} />,
+        <FaderValues.Provider value={faders} />,
+        <FaderValuesUpdate.Provider value={changeFader} />,
+        <LFOModPaths.Provider value={LFOmodPaths} />,
+        <LFOModPathsUpdate.Provider value={changeLFOModPaths} />,
+        <EnvModPaths.Provider value={EnvmodPaths} />,
+        <EnvModPathsUpdate.Provider value={changeEnvModPaths} />,
+      ]}
+    >
       {children}
-    </Providers>             
+    </MultiProvider>            
   )
 
 }
