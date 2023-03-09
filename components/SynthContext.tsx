@@ -1,4 +1,6 @@
 import React, { useState, useContext } from "react";
+/// <reference path="../decs.d.ts"/>
+const ReactArrayToTree = require('react-array-to-tree');
 
 const SelectedOsc = React.createContext<string | null>(null)
 const SelectedOscUpdate = React.createContext<((waveform: string) => void) | null>(null)
@@ -95,7 +97,7 @@ export function StateProvider({ children }: {children: any;}): JSX.Element {
     pitch: false,
   })
 
-  const changeOSC = (waveform: string) => {
+  const changeOsc = (waveform: string) => {
     setOsc(waveform);
   }
   const changeLFO = (waveform: string) => {
@@ -120,27 +122,23 @@ export function StateProvider({ children }: {children: any;}): JSX.Element {
     });
   }
   
+  const Providers = ReactArrayToTree([
+    [SelectedOsc.Provider, {value: osc}],
+    [SelectedOscUpdate.Provider, {value: changeOsc}],
+    [SelectedLFO.Provider, {value: lfo}],
+    [SelectedLFOUpdate.Provider, {value: changeLFO}],
+    [FaderValues.Provider, {value: faders}],
+    [FaderValuesUpdate.Provider, {value: changeFader}],
+    [LFOModPaths.Provider, {value: LFOmodPaths}],
+    [LFOModPathsUpdate.Provider, {value: changeLFOModPaths}],
+    [EnvModPaths.Provider, {value: EnvmodPaths}],
+    [EnvModPathsUpdate.Provider, {value: changeEnvModPaths}],
+  ]);
+
   return (
-    <SelectedOsc.Provider value={osc}>
-      <SelectedOscUpdate.Provider value={changeOSC}>
-        <SelectedLFO.Provider value={lfo}>
-          <SelectedLFOUpdate.Provider value={changeLFO}>
-            <FaderValues.Provider value={faders}>
-              <FaderValuesUpdate.Provider value={changeFader}>
-                <LFOModPaths.Provider value={LFOmodPaths}>
-                  <LFOModPathsUpdate.Provider value={changeLFOModPaths}>
-                    <EnvModPaths.Provider value={EnvmodPaths}>
-                      <EnvModPathsUpdate.Provider value={changeEnvModPaths}>
-                        {children}
-                      </EnvModPathsUpdate.Provider>
-                    </EnvModPaths.Provider>
-                  </LFOModPathsUpdate.Provider>
-                </LFOModPaths.Provider>
-              </FaderValuesUpdate.Provider>
-            </FaderValues.Provider>
-          </SelectedLFOUpdate.Provider>
-        </SelectedLFO.Provider>
-      </SelectedOscUpdate.Provider>
-    </SelectedOsc.Provider>
+    <Providers>
+      {children}
+    </Providers>             
   )
+
 }
