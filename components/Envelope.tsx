@@ -9,10 +9,10 @@ export default function Envelope() {
 
       <div className="flex flex-wrap h-full content-center justify-between w-full">
         <div className="h-[160px] w-[300px] border border-green-600 mx-2" />
-        <Fader parameter="ATTACK" faderId="4" />
-        <Fader parameter="DECAY" faderId="5" />
-        <Fader parameter="SUSTAIN" faderId="6" />
-        <Fader parameter="RELEASE" faderId="7" />
+        <Fader parameter="ATTACK" faderId={4} />
+        <Fader parameter="DECAY" faderId={5} />
+        <Fader parameter="SUSTAIN" faderId={6} />
+        <Fader parameter="RELEASE" faderId={7} />
         <ModIndicators modPathId="env" />
       </div>
 

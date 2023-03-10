@@ -19,8 +19,8 @@ export default function LFO() {
           <div onClick={ () => lfoUpdate("NOISE") } className={`flex justify-center text-xs border border-green-600 h-auto w-auto text-green-600 ${lfo === 'NOISE' ? 'bg-green-900' : 'bg-black'}`}>NOISE</div>      
         </div>
 
-        <Fader parameter="RATE" faderId="2" />
-        <Fader parameter="DEPTH" faderId="3" />
+        <Fader parameter="RATE" faderId={2} />
+        <Fader parameter="DEPTH" faderId={3} />
         <ModIndicators modPathId="lfo" />
 
       </div>

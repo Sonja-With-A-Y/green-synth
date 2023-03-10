@@ -6,8 +6,8 @@ export default function Global() {
         <p className="w-full h-auto text-center justify-center text-green-600">Global</p>
         <div className="flex flex-wrap h-full w-full place-content-center">
 
-          <Fader parameter="VOLUME" faderId="8" />
-          <Fader parameter="TEMPO" faderId="9" />
+          <Fader parameter="VOLUME" faderId={8} />
+          <Fader parameter="TEMPO" faderId={9} />
         </div>
       </div>
   )

@@ -3,7 +3,7 @@ import soundNote from "./Sound"
 
 import { useSelectedOsc, useFaderValues } from "./SynthContext"
 
-export default function Key(props) {
+export default function Key(props: {note: string}) {
   const oscType = useSelectedOsc()
   const faderValues = useFaderValues()
 

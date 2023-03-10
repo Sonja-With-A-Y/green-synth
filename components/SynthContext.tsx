@@ -7,9 +7,9 @@ const SelectedLFO = React.createContext<string | null>(null)
 const SelectedLFOUpdate = React.createContext<((waveform: string) => void) | null>(null)
 const FaderValues = React.createContext<number[] | null>(null)
 const FaderValuesUpdate = React.createContext<((faderId: number, value: number) => void) | null>(null)
-const LFOModPaths = React.createContext<object | null>(null)
+const LFOModPaths = React.createContext<{attack: boolean, filter: boolean, pitch: boolean} | null>(null)
 const LFOModPathsUpdate = React.createContext<((modTypeId: "attack" | "filter" | "pitch") => void) | null>(null)
-const EnvModPaths = React.createContext<object | null>(null)
+const EnvModPaths = React.createContext<{attack: boolean, filter: boolean, pitch: boolean} | null>(null)
 const EnvModPathsUpdate = React.createContext<((modTypeId: "attack" | "filter" | "pitch") => void) | null>(null)
 
 export function useSelectedOsc() {
@@ -41,7 +41,13 @@ export function useSelectedLFOUpdate() {
 }
 
 export function useFaderValues() {
-  return useContext(FaderValues)
+  const FaderValuesUntyped = useContext(FaderValues)
+
+  if (!FaderValuesUntyped) {
+    throw new Error("Problem with fader values context")
+  }
+
+  return FaderValuesUntyped
 }
 
 export function useFaderValuesUpdate() {
@@ -55,8 +61,15 @@ export function useFaderValuesUpdate() {
 }
 
 export function useLFOModPaths() {
-  return useContext(LFOModPaths)
+  const LFOModPathsUntyped = useContext(LFOModPaths)
+
+  if (!LFOModPathsUntyped) {
+    throw new Error ("Problem with lfo mod paths context")
+  }
+
+  return LFOModPathsUntyped
 }
+
 export function useLFOModPathsUpdate() {
   const LFOModPathsUpdateUntyped = useContext(LFOModPathsUpdate)
 
@@ -68,7 +81,13 @@ export function useLFOModPathsUpdate() {
 }
 
 export function useEnvModPaths() {
-  return useContext(EnvModPaths)
+  const EnvModPathsUntyped = useContext(EnvModPaths)
+
+  if (!EnvModPathsUntyped) {
+    throw new Error ("Problem with env mod paths context")
+  }
+
+  return EnvModPathsUntyped
 }
 export function useEnvModPathsUpdate() {
   const EnvModPathsUpdateUntyped = useContext(EnvModPathsUpdate)
@@ -139,5 +158,4 @@ export function StateProvider({ children }: {children: any;}): JSX.Element {
       {children}
     </MultiProvider>            
   )
-
 }

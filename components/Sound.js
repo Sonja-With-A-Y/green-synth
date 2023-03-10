@@ -1,7 +1,8 @@
 import * as Tone from 'tone'
-
+// types are string, string, number
 export default function soundNote(note, oscType, faderValues) {
-
+  //Tone.Oscillator is overloaded, check link below to type it.
+  //https://github.com/Tonejs/Tone.js/wiki/Using-Tone.js-with-React-React-Typescript-or-Vue
   const osc = new Tone.Oscillator(note, oscType, {volume: -6}).start();
 
   const env = new Tone.AmplitudeEnvelope({
