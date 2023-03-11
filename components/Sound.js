@@ -1,4 +1,23 @@
 import * as Tone from 'tone'
+
+/* Variables
+note: string
+oscType: string
+lfoType: string
+
+faderValues: number array
+0: Cutoff
+1: Resonance
+2: LFO Rate
+3: LFO Depth
+4: Envelope Attack
+5: Envelope Decay
+6: Envelope Sustain
+7: Envelope Release
+8: Global Volume
+9: Tempo
+
+*/
 // types are string, string, number
 export default function soundNote(note, oscType, faderValues) {
   //Tone.Oscillator is overloaded, check link below to type it.
