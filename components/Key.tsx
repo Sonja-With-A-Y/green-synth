@@ -10,9 +10,9 @@ export default function Key(props: {note: string}) {
 
   return(
     <div>
-      <div onClick={ () => soundNote(props.note, oscType, faderValues) } className="h-8 w-8 items-middle border border-green-600 m-1">
-        <p className="text-green-600 text-center align-middle">{props.note}</p>
+      <div onClick={ () => soundNote(props.note, oscType, faderValues) } className="h-8 w-4 items-middle border border-green-600 m-1">
       </div>
     </div>
   )
 }
+//<p className="text-green-600 text-center align-middle">{props.note}</p>
